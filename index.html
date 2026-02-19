@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pothole Map</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            position: absolute;
+            z-index: 1000;
+            width: 100%;
+            background: white;
+            margin: 0;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Pothole Map</h1>
+<div id="map"></div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+    // Create map
+    var map = L.map('map').setView([20.5937, 78.9629], 5); // India center
+
+    // Add map tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Example pothole markers
+    var potholes = [
+        { lat: 28.6139, lng: 77.2090, info: "Delhi - Severity 3" },
+        { lat: 19.0760, lng: 72.8777, info: "Mumbai - Severity 4" },
+        { lat: 13.0827, lng: 80.2707, info: "Chennai - Severity 2" }
+    ];
+
+    potholes.forEach(function(p) {
+        L.marker([p.lat, p.lng])
+            .addTo(map)
+            .bindPopup(p.info);
+    });
+</script>
+
+</body>
+</html>
